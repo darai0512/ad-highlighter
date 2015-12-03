@@ -1,0 +1,25 @@
+.hotspot_container {
+	background-image: linear-gradient(-45deg, #944DD8 0%, #2B73D2 100%);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 9999;
+}
+
+.ads {
+	max-width: 120px;
+	padding: 4px 6px 4px 6px;
+	margin-top: 12px;
+	margin-left: 12px;
+	border-style: solid;
+	border-color: #888888;
+	color: #FFFFFF;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.ads:hover {
+	background-color: #FFFFFF;
+	color: #000000;
+	cursor: pointer;
+}
