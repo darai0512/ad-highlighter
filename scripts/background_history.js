@@ -1,4 +1,4 @@
-console.log('chrome backgroudn history api');
+console.log('chrome background history api');
 
 var yahooDomain = [
     "tw.sports.yahoo.com",
