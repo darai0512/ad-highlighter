@@ -72,7 +72,7 @@
 						console.log("localStorageHeight", localStorageHeight);
 						// change hotspot region
 
-						countHotSpotPosition();
+						countHotSpotPosition(hotspot_container);
 
 						/*
 						$.ajax({
@@ -139,7 +139,7 @@
 			$('a[href*="' + containsText + '"]').closest("div").css("border", borderStyleHL);
 		}
 
-		function countHotSpotPosition() {
+		function countHotSpotPosition(hotspot_container) {
 			$(hotspot_container).removeClass("top").removeClass("bottom").removeClass("left").removeClass("right");
 			if (localStorageHeight/windowHeight > 0.67) {
 				// bottom
