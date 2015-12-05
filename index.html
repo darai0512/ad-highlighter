@@ -17,7 +17,7 @@
     <!-- js test -->
     <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
     <style type="text/css">
-.bnr {
+.space{
      position: fixed;
      right: -100px;
      top: 0px;
@@ -31,7 +31,7 @@
      line-height:100%;
 }
 
-.bnr a{
+.space a{
      display:block;
      width:100%;
      height:100%;
@@ -80,34 +80,34 @@
     </div>
 
 <!-- js test -->
-<div class="bnr">
+<div class="space">
      <a href="#">test</a>
 </div>
 <script type="text/javascript">
  
-     var $bnrBtn = $('.bnr');
+     var $Space = $('.space');
      $(function() {
-          setTimeout('openBnr()',1000)
+          setTimeout('openSpace()',1000)
      });
      $(function() {
-          var timerID = setTimeout('closeBnr()',4000);
-          $bnrBtn.hover(
+          var timerID = setTimeout('closeSpace()',4000);
+          $Space.hover(
                function(){
                     clearTimeout(timerID);
-                    openBnr();
+                    openSpace();
                },
                function(){
-                    timerID = setTimeout('closeBnr()',2000);
+                    timerID = setTimeout('closeSpace()',2000);
                }
           )
      });
  
  
-     function openBnr() {
-          $bnrBtn.stop().animate({'right' : '0px'}, "fast");
+     function openSpace() {
+          $Space.stop().animate({'right' : '0px'}, "fast");
      };
-     function closeBnr() {
-          $bnrBtn.stop().animate({'right' : '-100px'}, "fast");
+     function closeSpace() {
+          $Space.stop().animate({'right' : '-100px'}, "fast");
      };
 </script>
 <!-- js test -->
