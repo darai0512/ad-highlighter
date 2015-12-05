@@ -1,25 +1,75 @@
 .hotspot_container {
-	background-image: linear-gradient(-45deg, #944DD8 0%, #2B73D2 100%);
+	padding: 6px 12px 6px 12px;
 	position: fixed;
-	left: 0;
-	top: 0;
 	z-index: 9999;
+	background-image: linear-gradient(-45deg, #944DD8 0%, #2B73D2 100%);
+	-webkit-box-shadow: 4px 3px 50px 0px rgba(0,0,0,0.75);
+	box-shadow: 4px 3px 50px 0px rgba(0,0,0,0.75);
 }
 
-.ads {
-	max-width: 120px;
+.hotspot_container.top{
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 220px;
+}
+
+.hotspot_container.bottom{
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 220px;
+}
+
+.hotspot_container.left{
+	left: 0;
+	top: 0;
+	width: 220px;
+	height: 100%;
+}
+
+.hotspot_container.right{
+	top: 0;
+	right: 0;
+	width: 220px;
+	height: 100%;
+}
+
+.adsContainer {
+	display: inline-block;
 	padding: 4px 6px 4px 6px;
 	margin-top: 12px;
 	margin-left: 12px;
 	border-style: solid;
-	border-color: #888888;
-	color: #FFFFFF;
+	color: #000000;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	border-color: #FFFFFF;
+	background-color: #FFFFFF;
+	-webkit-box-shadow: 4px 3px 50px 0px rgba(0,0,0,0.75);
+	box-shadow: 4px 3px 50px 0px rgba(0,0,0,0.75);
 }
 
-.ads:hover {
+.adsContainer:hover {
 	background-color: #FFFFFF;
 	color: #000000;
 	cursor: pointer;
+}
+
+.adsLeft {
+	float: left;
+	width: auto;
+	padding: 2px 2px 2px 2px;
+}
+
+.adsRight {
+	overflow: auto;
+	padding-left: 12px;
+}
+
+.hotspotText {
+	text-align: center;
+	font-size: 64px;
+	line-height: 220px;
+	color: #FFFFFF;
 }
