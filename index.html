@@ -14,8 +14,7 @@
     <![endif]-->
 
     <title>Ad-highlighter by darai0512</title>
-    <!-- js test -->
-    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+    <!-- ad-highlighter hot-zone -->
     <style type="text/css">
 .space{
      position: fixed;
@@ -38,9 +37,38 @@
      color: #fff;
      text-decoration:none;
 }
-
     </style>
-    <!-- js test -->
+    <!-- ad-highlighter hot-zone -->
+    <!-- ad-highlighter animation -->
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+    <script type="text/javascript">
+ 
+     var $Space = $('.space');
+     $(function() {
+          setTimeout('openSpace()',1000)
+     });
+     $(function() {
+          var timerID = setTimeout('closeSpace()',3000);
+          $Space.hover(
+               function(){
+                    clearTimeout(timerID);
+                    openSpace();
+               },
+               function(){
+                    timerID = setTimeout('closeSpace()',500);
+               }
+          )
+     });
+ 
+ 
+     function openSpace() {
+          $Space.stop().animate({'right' : '0px'}, "fast");
+     };
+     function closeSpace() {
+          $Space.stop().animate({'right' : '-100px'}, "fast");
+     };
+    </script>
+    <!-- ad-highlighter animation -->
   </head>
 
   <body>
@@ -79,37 +107,10 @@
       </div>
     </div>
 
-<!-- js test -->
+<!-- ad-highlighter hot-zone -->
 <div class="space">
      <a href="#">test</a>
 </div>
-<script type="text/javascript">
- 
-     var $Space = $('.space');
-     $(function() {
-          setTimeout('openSpace()',1000)
-     });
-     $(function() {
-          var timerID = setTimeout('closeSpace()',3000);
-          $Space.hover(
-               function(){
-                    clearTimeout(timerID);
-                    openSpace();
-               },
-               function(){
-                    timerID = setTimeout('closeSpace()',500);
-               }
-          )
-     });
- 
- 
-     function openSpace() {
-          $Space.stop().animate({'right' : '0px'}, "fast");
-     };
-     function closeSpace() {
-          $Space.stop().animate({'right' : '-100px'}, "fast");
-     };
-</script>
-<!-- js test -->
+<!-- ad-highlighter hot-zone -->
   </body>
 </html>
