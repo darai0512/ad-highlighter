@@ -94,6 +94,7 @@
           $bnrBtn.hover(
                function(){
                     clearTimeout(timerID);
+                    openBnr();
                },
                function(){
                     timerID = setTimeout('closeBnr()',2000);
