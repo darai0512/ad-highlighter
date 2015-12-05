@@ -10,20 +10,18 @@
 		var windowHeight = $(window).height();
 		var localStorageWidth = localStorage.adsAverageX ? parseInt(localStorage.adsAverageX) : 0;
 		var localStorageHeight = localStorage.adsAverageY ? parseInt(localStorage.adsAverageY) : 0;
+		var targetDomainList = [
+			{ domain: 'mobile01.com', pattern: 'adredir'},
+			{ domain: 'gamer.com.tw', pattern: 'adcounter'},
+			{ domain: 'japantoday.com', pattern: 'ads.gplusmedia'}
+		];
+		var mockScore = {autos: 0, celebrity: 2, finance: 0, food: 2, movies: 0, music: 2, sports: 0, tech: 0};
 
 		$.when(saerchHistoryCounting()).then(function(score){
 			var userScore = score;
 			console.log("userScore", userScore);
-
-			var mockScore = {autos: 0, celebrity: 2, finance: 0, food: 2, movies: 0, music: 2, sports: 0, tech: 0};
-
 			console.log("diff = ", diffScore(userScore, mockScore));
 
-			var targetDomainList = [
-				{ domain: 'mobile01.com', pattern: 'adredir'},
-				{ domain: 'gamer.com.tw', pattern: 'adcounter'},
-				{ domain: 'japantoday.com', pattern: 'ads.gplusmedia'}
-			];
 
 			// hotspot
 	    	var hotspot_container = document.createElement("div");
@@ -40,6 +38,20 @@
 
 			// highlight ad which contains `adcounter.php` in href
 			//makrAdsHL("adcounter.php");
+
+			// get all ads info from backend DB
+			/*
+			$.ajax({
+				method: "POST",
+			  	url: "some.php",
+			  	data: {
+			  		currentUrl: "currentUrl"
+			  	}
+			})
+			.done(function(msg) {
+				console.log( "Data Saved: " + msg );
+			});
+			*/
 
 			$('a').click(function() {
 				for(x in targetDomainList) {
@@ -74,11 +86,17 @@
 
 						countHotSpotPosition(hotspot_container);
 
+						// send click ads info to DB
 						/*
 						$.ajax({
 							method: "POST",
 						  	url: "some.php",
-						  	data: { name: "John", location: "Boston" }
+						  	data: {
+						  		currentUrl: "currentUrl",
+						  		adUrl: "adUrl",
+						  		adImage: "adImage",
+						  		featureSet: "featureSet"
+						  	}
 						})
 						.done(function( msg ) {
 							console.log( "Data Saved: " + msg );
