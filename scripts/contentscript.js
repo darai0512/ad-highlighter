@@ -11,111 +11,129 @@
 		var localStorageWidth = localStorage.adsAverageX ? parseInt(localStorage.adsAverageX) : 0;
 		var localStorageHeight = localStorage.adsAverageY ? parseInt(localStorage.adsAverageY) : 0;
 
-		var targetDomainList = [
-			{ domain: 'mobile01.com', pattern: 'adredir'},
-			{ domain: 'gamer.com.tw', pattern: 'adcounter'},
-			{ domain: 'japantoday.com', pattern: 'ads.gplusmedia'}
-		];
+		$.when(saerchHistoryCounting()).then(function(score){
+			var userScore = score;
+			console.log("userScore", userScore);
 
-		// hotspot
-    	var hotspot_container = document.createElement("div");
-    	// addClass via top, bottom, left, right
-    	$(hotspot_container).addClass("hotspot_container").addClass("top");
+			var mockScore = {autos: 0, celebrity: 2, finance: 0, food: 2, movies: 0, music: 2, sports: 0, tech: 0};
 
-		var cloneUrlAry = [];
-		var cloneImgAry = [];
+			console.log("diff = ", diffScore(userScore, mockScore));
 
-		console.log("$(window).height()", $(window).height());
-		console.log("$(window).width()", $(window).width());
-		console.log("localStorageWidth", localStorageWidth);
-		console.log("localStorageHeight", localStorageHeight);
+			var targetDomainList = [
+				{ domain: 'mobile01.com', pattern: 'adredir'},
+				{ domain: 'gamer.com.tw', pattern: 'adcounter'},
+				{ domain: 'japantoday.com', pattern: 'ads.gplusmedia'}
+			];
 
-		// highlight ad which contains `adcounter.php` in href
-		//makrAdsHL("adcounter.php");
+			// hotspot
+	    	var hotspot_container = document.createElement("div");
+	    	// addClass via top, bottom, left, right
+	    	$(hotspot_container).addClass("hotspot_container").addClass("top");
 
+			var cloneUrlAry = [];
+			var cloneImgAry = [];
 
-		$('a').click(function() {
-			for(x in targetDomainList) {
-				console.log('check target ads in domain list');
-				if ( window.location.href.indexOf(targetDomainList[x].domain) != -1 && $(this).attr('href').indexOf(targetDomainList[x].pattern) > -1) {
-					console.log("get targer ads match in domain list");
-					$(this).parent().css("border", borderStyleHL);
+			console.log("$(window).height()", $(window).height());
+			console.log("$(window).width()", $(window).width());
+			console.log("localStorageWidth", localStorageWidth);
+			console.log("localStorageHeight", localStorageHeight);
 
-					var adPos = $(this).parent().position();
+			// highlight ad which contains `adcounter.php` in href
+			//makrAdsHL("adcounter.php");
 
-					// adImg
-					var adImg = $(this).find("img").clone();
-					$(adImg).css({"width": adsImageWidth, "height": adsImageHeight});
+			$('a').click(function() {
+				for(x in targetDomainList) {
+					console.log('check target ads in domain list');
+					if ( window.location.href.indexOf(targetDomainList[x].domain) != -1 && $(this).attr('href').indexOf(targetDomainList[x].pattern) > -1) {
+						console.log("get targer ads match in domain list");
+						$(this).parent().css("border", borderStyleHL);
 
-					cloneUrlAry.push($(this).attr("href"));
-					cloneImgAry.push(adImg);
+						var adPos = $(this).parent().position();
 
-					console.log("current url = " + window.location.href);
-					console.log("DOM url = " + $(this).attr("href"));
-					console.log("DOM class = " + $(this).parent().attr("class"));
-					console.log("DOM id = " + $(this).parent().attr("id"));
-					console.log("DOM adPos left = " + adPos.left);
-					console.log("DOM adPos top = " + adPos.top);
+						// adImg
+						var adImg = $(this).find("img").clone();
+						$(adImg).css({"width": adsImageWidth, "height": adsImageHeight});
 
-					// set localstorage
-					localStorageWidth = localStorage["adsAverageX"] = (localStorageWidth + adPos.left)/2;
-					localStorageHeight = localStorage["adsAverageY"] = (localStorageHeight + adPos.top)/2;
+						cloneUrlAry.push($(this).attr("href"));
+						cloneImgAry.push(adImg);
 
-					console.log("localStorageWidth", localStorageWidth);
-					console.log("localStorageHeight", localStorageHeight);
-					// change hotspot region
+						console.log("current url = " + window.location.href);
+						console.log("DOM url = " + $(this).attr("href"));
+						console.log("DOM class = " + $(this).parent().attr("class"));
+						console.log("DOM id = " + $(this).parent().attr("id"));
+						console.log("DOM adPos left = " + adPos.left);
+						console.log("DOM adPos top = " + adPos.top);
 
-					countHotSpotPosition();
+						// set localstorage
+						localStorageWidth = localStorage["adsAverageX"] = (localStorageWidth + adPos.left)/2;
+						localStorageHeight = localStorage["adsAverageY"] = (localStorageHeight + adPos.top)/2;
 
-					/*
-					$.ajax({
-						method: "POST",
-					  	url: "some.php",
-					  	data: { name: "John", location: "Boston" }
-					})
-					.done(function( msg ) {
-						console.log( "Data Saved: " + msg );
-					});
-					*/
+						console.log("localStorageWidth", localStorageWidth);
+						console.log("localStorageHeight", localStorageHeight);
+						// change hotspot region
 
-				}
-			}
-		});
+						countHotSpotPosition();
 
-	    // ads hotspot region
-		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-			if(request.status == '1') {
-				$(hotspot_container).text("");
-				$("body").before(hotspot_container);
-				if (cloneUrlAry.length === 0) {
-					// array is empty
-					var emptyText = document.createElement("div");
-					$(emptyText).addClass("hotspotText").text("No more Ads highlighting");
-					$(hotspot_container).append(emptyText);
-				} else {
-					// update ads
-					for(key in cloneUrlAry) {
-			    		var adsContainer = document.createElement("div");
-			    		var adsLeft = document.createElement("div");
-			    		var adsRight = document.createElement("div");
+						/*
+						$.ajax({
+							method: "POST",
+						  	url: "some.php",
+						  	data: { name: "John", location: "Boston" }
+						})
+						.done(function( msg ) {
+							console.log( "Data Saved: " + msg );
+						});
+						*/
 
-			    		$(adsLeft).addClass("adsLeft");
-			    		$(adsRight).addClass("adsRight");
-
-			    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight);
-			    		$(adsLeft).append(cloneImgAry[key]);
-			    		$(adsRight).text("this is one ads content");
-
-			    		$(hotspot_container).append(adsContainer);
 					}
 				}
-				$(hotspot_container).show();
-			}
+			});
+
+		    // ads hotspot region
+			chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+				if(request.status == '1') {
+					$(hotspot_container).text("");
+					$("body").before(hotspot_container);
+					if (cloneUrlAry.length === 0) {
+						// array is empty
+						var emptyText = document.createElement("div");
+						$(emptyText).addClass("hotspotText").text("No more Ads highlighting");
+						$(hotspot_container).append(emptyText);
+					} else {
+						// update ads
+						for(key in cloneUrlAry) {
+				    		var adsContainer = document.createElement("div");
+				    		var adsLeft = document.createElement("div");
+				    		var adsRight = document.createElement("div");
+
+				    		$(adsLeft).addClass("adsLeft");
+				    		$(adsRight).addClass("adsRight");
+
+				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight);
+				    		$(adsLeft).append(cloneImgAry[key]);
+				    		$(adsRight).text("this is one ads content");
+
+				    		$(hotspot_container).append(adsContainer);
+						}
+					}
+					$(hotspot_container).show();
+				}
+			});
+
+			$("body").click(function(){
+				$(hotspot_container).hide();
+			});
 		});
 
-		$("body").click(function(){
-			$(hotspot_container).hide();
-		});
+		function saerchHistoryCounting() {
+		    var d = new $.Deferred();
+			chrome.runtime.sendMessage({method: "getStatus"}, function(response) {
+				//console.log(response.score);
+			  	d.resolve(response.score);
+			})
+		    return d;
+		}
+
 
 		function makrAdsHL(containsText) {
 			$('a[href*="' + containsText + '"]').closest("div").css("border", borderStyleHL);
@@ -139,6 +157,17 @@
 				// default top
 				$(hotspot_container).addClass("top");
 			}
+		}
+		function diffScore(userScore, mockScore) {
+			var threshold = 8;
+			var sum = 0;
+			//console.log("diff s1", userScore);
+			//console.log("diff s2", mockScore);
+			for (type in userScore) {
+				sum = sum + Math.abs((userScore[type] - mockScore[type])*(userScore[type] - mockScore[type]));
+			}
+			sum = Math.sqrt(sum);
+			return (sum < threshold) ? true: false;
 		}
 
 	});

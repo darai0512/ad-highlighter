@@ -1,4 +1,4 @@
-console.log('chrome background history api');
+console.log('chrome backgroudn history api');
 
 
 var yahooDomain = [
@@ -37,6 +37,15 @@ for(intl in yahooDomain) {
 }
 
 console.log("user history score = ", userDomainRepresent);
+
+// send userDomainRepresent to contentscript.js
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.method == "getStatus")
+      sendResponse({score: userDomainRepresent});
+    else
+      sendResponse({}); // snub them.
+});
+
 
 function saerchHistoryCounting(type, domain) {
     var d = new $.Deferred();
