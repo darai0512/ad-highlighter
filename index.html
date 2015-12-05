@@ -90,14 +90,14 @@
           setTimeout('openSpace()',1000)
      });
      $(function() {
-          var timerID = setTimeout('closeSpace()',4000);
+          var timerID = setTimeout('closeSpace()',3000);
           $Space.hover(
                function(){
                     clearTimeout(timerID);
                     openSpace();
                },
                function(){
-                    timerID = setTimeout('closeSpace()',1000);
+                    timerID = setTimeout('closeSpace()',500);
                }
           )
      });
