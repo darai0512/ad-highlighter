@@ -85,28 +85,28 @@
 </div>
 <script type="text/javascript">
  
-     var bnrBtn = $('.bnr');
+     var $bnrBtn = $('.bnr');
      $(function() {
-          setTimeout('openBnr()',2000)
+          setTimeout('openBnr()',1000)
      });
      $(function() {
           var timerID = setTimeout('closeBnr()',4000);
-          bnrBtn.hover(
+          $bnrBtn.hover(
                function(){
                     clearTimeout(timerID);
                },
                function(){
-                    timerID = setTimeout('closeBnr()',3200);
+                    timerID = setTimeout('closeBnr()',3000);
                }
           )
      });
  
  
      function openBnr() {
-          bnrBtn.stop().animate({'bottom' : '0px'}, 400);
+          $bnrBtn.stop().animate({'right' : '110px'}, "fast");
      };
      function closeBnr() {
-          bnrBtn.stop().animate({'bottom' : '-100px'}, 400);
+          $bnrBtn.stop().animate({'right' : '-100px'}, "fast");
      };
 </script>
 <!-- js test -->
