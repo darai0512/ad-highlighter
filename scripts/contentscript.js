@@ -17,7 +17,7 @@
 		];
 		var mockScore = {autos: 0, celebrity: 2, finance: 0, food: 2, movies: 0, music: 2, sports: 0, tech: 0};
 
-		$.when(saerchHistoryCounting()).then(function(score){
+		$.when(getUserScore()).then(function(score){
 			var userScore = score;
 			console.log("userScore", userScore);
 			console.log("diff = ", diffScore(userScore, mockScore));
@@ -143,10 +143,9 @@
 			});
 		});
 
-		function saerchHistoryCounting() {
+		function getUserScore() {
 		    var d = new $.Deferred();
 			chrome.runtime.sendMessage({method: "getStatus"}, function(response) {
-				//console.log(response.score);
 			  	d.resolve(response.score);
 			})
 		    return d;
