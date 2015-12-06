@@ -44,6 +44,7 @@
 	    	$(hotspot_container).addClass("hotspot_container").addClass("top");
 
 			var cloneUrlAry = [];
+			var cloneTextAry = [];
 			var cloneImgAry = [];
 
 			console.log("$(window).height()", $(window).height());
@@ -76,13 +77,13 @@
 						$(this).parent().css("border", borderStyleHL);
 
 						var adPos = $(this).parent().position();
-
-						// adImg
+						var adText = $(this).text() ? $(this).text() : "this is an image ads";
 						var adImg = $(this).find("img").clone();
 						$(adImg).css({"width": adsImageWidth, "height": adsImageHeight});
 
 						cloneUrlAry.push($(this).attr("href"));
 						cloneImgAry.push(adImg);
+						cloneTextAry.push(adText);
 
 						console.log("current url = " + window.location.href);
 						console.log("DOM url = " + $(this).attr("href"));
@@ -136,6 +137,7 @@
 						// update ads
 						for(key in cloneUrlAry) {
 				    		var adsContainer = document.createElement("div");
+				    		var adsLink = document.createElement("a");
 				    		var adsLeft = document.createElement("div");
 				    		var adsRight = document.createElement("div");
 
@@ -144,9 +146,10 @@
 
 				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight);
 				    		$(adsLeft).append(cloneImgAry[key]);
-				    		$(adsRight).text("this is one ads content");
-
-				    		$(hotspot_container).append(adsContainer);
+				    		$(adsRight).text(cloneTextAry);
+				    		$(adsLink).attr({"href": cloneUrlAry, "target": "_blank"});
+				    		$(adsLink).append(adsContainer);
+				    		$(hotspot_container).append(adsLink);
 						}
 					}
 					$(hotspot_container).show();
