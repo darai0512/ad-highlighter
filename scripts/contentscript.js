@@ -146,7 +146,7 @@
 
 				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight);
 				    		$(adsLeft).append(cloneImgAry[key]);
-				    		$(adsRight).text(cloneTextAry);
+				    		$(adsRight).text(cloneTextAry[key]);
 				    		$(adsLink).attr({"href": cloneUrlAry, "target": "_blank"});
 				    		$(adsLink).append(adsContainer);
 				    		$(hotspot_container).append(adsLink);
