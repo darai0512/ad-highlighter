@@ -1,3 +1,16 @@
+/*
+	TODO:
+	1) ajax post
+		a) get all ads info for current url from backend DB
+		b) send user click ads info to backend DB
+	2) ads-highlighting
+		a) marked highlighting ads on current page
+		b) placed highlighting ads into hotspot-region
+
+	OPTIONAL:
+	1) instead of using edit distance in diffScore(), we should apply a better algorithm for it
+	2) animation for extension
+*/
 (function() {
 
 	$(document).ready(function() {
@@ -6,6 +19,7 @@
 		var borderStyleHL = "3px solid red";
 		var adsImageWidth = "60px";
 		var adsImageHeight = "60px";
+		var scoreThreshold = 8;
 		var windowWidth = $(window).width();
 		var windowHeight = $(window).height();
 		var localStorageWidth = localStorage.adsAverageX ? parseInt(localStorage.adsAverageX) : 0;
@@ -13,7 +27,8 @@
 		var targetDomainList = [
 			{ domain: 'mobile01.com', pattern: 'adredir'},
 			{ domain: 'gamer.com.tw', pattern: 'adcounter'},
-			{ domain: 'japantoday.com', pattern: 'ads.gplusmedia'}
+			{ domain: 'japantoday.com', pattern: 'ads.gplusmedia'},
+			{ domain: 'search.yahoo.com', pattern: 'r.msn.com'}
 		];
 		var mockScore = {autos: 0, celebrity: 2, finance: 0, food: 2, movies: 0, music: 2, sports: 0, tech: 0};
 
@@ -176,8 +191,9 @@
 				$(hotspot_container).addClass("top");
 			}
 		}
+
+		// edit distance counting
 		function diffScore(userScore, mockScore) {
-			var threshold = 8;
 			var sum = 0;
 			//console.log("diff s1", userScore);
 			//console.log("diff s2", mockScore);
@@ -185,7 +201,7 @@
 				sum = sum + Math.abs((userScore[type] - mockScore[type])*(userScore[type] - mockScore[type]));
 			}
 			sum = Math.sqrt(sum);
-			return (sum < threshold) ? true: false;
+			return (sum < scoreThreshold) ? true: false;
 		}
 
 	});
