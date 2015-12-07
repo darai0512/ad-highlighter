@@ -23,7 +23,7 @@ class Ad(db.Document):
     ad_url = db.StringField(max_length=120, required=True)
     dom_info = db.StringField(max_length=120)
     image = db.StringField()
-    feature = db.StringField()
+    feature = db.DictField()
 
 class AdResource(Resource):
     document = Ad
