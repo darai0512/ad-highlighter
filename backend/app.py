@@ -5,9 +5,12 @@ from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from flask.ext.mongorest.views import ResourceView
 from flask.ext.mongorest.resources import Resource
+from flask.ext.mongorest import operators as ops
 from flask.ext.mongorest import methods
 
 app = Flask(__name__)
+
+app.url_map.strict_slashes = False
 
 app.config.update(
     MONGODB_HOST = 'localhost',
@@ -19,16 +22,24 @@ db = MongoEngine(app)
 api = MongoRest(app)
 
 class Ad(db.Document):
-    url = db.StringField(max_length=120, required=True)
-    ad_url = db.StringField(max_length=120, required=True)
-    dom_info = db.StringField(max_length=120)
+    url = db.StringField(required=True)
+    ad_url = db.StringField(required=True)
+    user_ip = db.StringField(required=True)
+    href = db.StringField()
     image = db.StringField()
     feature = db.DictField()
+    action = db.StringField()
 
 class AdResource(Resource):
     document = Ad
     related_resources = {}
-    filters = {}
+    filters = {
+        'url': [ops.Exact, ops.Startswith, ops.Contains],
+        'ad_url': [ops.Exact, ops.Startswith, ops.Contains],
+        'user_ip': [ops.Exact],
+        'href': [ops.Exact],
+        'action': [ops.Exact, ops.Startswith, ops.Contains],
+    }
     rename_fields = {}
 
 @api.register(name='ads', url='/ads/')
