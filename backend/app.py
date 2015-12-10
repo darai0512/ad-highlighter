@@ -22,10 +22,9 @@ db = MongoEngine(app)
 api = MongoRest(app)
 
 class Ad(db.Document):
-    url = db.StringField(required=True)
+    page_url = db.StringField(required=True)
     ad_url = db.StringField(required=True)
     user_ip = db.StringField(required=True)
-    href = db.StringField()
     image = db.StringField()
     feature = db.DictField()
     action = db.StringField()
@@ -34,10 +33,9 @@ class AdResource(Resource):
     document = Ad
     related_resources = {}
     filters = {
-        'url': [ops.Exact, ops.Startswith, ops.Contains],
+        'page_url': [ops.Exact, ops.Startswith, ops.Contains],
         'ad_url': [ops.Exact, ops.Startswith, ops.Contains],
         'user_ip': [ops.Exact],
-        'href': [ops.Exact],
         'action': [ops.Exact, ops.Startswith, ops.Contains],
     }
     rename_fields = {}
