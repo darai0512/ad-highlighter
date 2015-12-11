@@ -25,7 +25,6 @@ class Ad(db.Document):
     page_url = db.StringField(required=True)
     ad_url = db.StringField(required=True)
     user_ip = db.StringField(required=True)
-    image = db.StringField()
     feature = db.DictField()
     action = db.StringField()
 
