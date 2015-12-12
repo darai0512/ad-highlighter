@@ -199,14 +199,17 @@
 				    		var adsLink = document.createElement("a");
 				    		var adsLeft = document.createElement("div");
 				    		var adsRight = document.createElement("div");
+							var adsRemoveBtn = document.createElement("span");
 
-				    		$(adsLeft).addClass("adsLeft");
+							$(adsLeft).addClass("adsLeft");
 				    		$(adsRight).addClass("adsRight");
+				    		$(adsRemoveBtn).addClass("adsRmBtn");
+				    		$(adsRemoveBtn).on("click", removeAd);
 
-				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight);
+				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight).append(adsRemoveBtn);
 				    		$(adsLeft).append(cloneImgAry[key]);
 				    		$(adsRight).text(cloneTextAry[key]);
-				    		$(adsLink).attr({"href": cloneUrlAry, "target": "_blank"});
+				    		$(adsLink).attr({"href": cloneUrlAry[key], "target": "_blank"});
 				    		$(adsLink).append(adsContainer);
 				    		$(hotspot_container).append(adsLink);
 						}
@@ -218,6 +221,24 @@
 			$("body").click(function(){
 				$(hotspot_container).hide();
 			});
+
+			function removeCloneEle(eleIndex) {
+				if (eleIndex != -1) {
+					cloneUrlAry.splice(eleIndex, 1);
+					cloneImgAry.splice(eleIndex, 1);
+					cloneTextAry.splice(eleIndex, 1);
+				}
+			}
+
+			function removeAd () {
+				event.preventDefault();
+				//Todo remove ad in cloneUrlAry
+				var rmLink = $(this).parents("a").attr("href");
+				var indexOfLink = jQuery.inArray(rmLink, cloneUrlAry);
+				removeCloneEle(indexOfLink);
+
+				$(this).parent().hide();
+			}
 		});
 
 		function getUserScore() {
