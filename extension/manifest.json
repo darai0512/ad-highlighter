@@ -14,7 +14,7 @@
         "scripts": [ "asserts/libs/jquery-2.0.0.min.js", "scripts/background_history.js", "scripts/background_action.js"]
     },
     "browser_action": { "default_title": "Demo Extension" },
-    "permissions": [ "history", "tabs", "storage", "<all_urls>", "http://*/", "https://*/", "http://ec2-52-192-27-88.ap-northeast-1.compute.amazonaws.com:5000/", "https://ec2-52-192-27-88.ap-northeast-1.compute.amazonaws.com:5000/"],
+    "permissions": [ "history", "tabs", "storage", "<all_urls>", "http://*/", "https://*/", "http://ec2-52-192-27-88.ap-northeast-1.compute.amazonaws.com:5000/", "https://ec2-52-192-27-88.ap-northeast-1.compute.amazonaws.com:5000/", "http://freegeoip.net/"],
     "content_scripts": [{
       "all_frames": false,
       "js": [ "asserts/libs/jquery-2.0.0.min.js", "scripts/contentscript.js"],

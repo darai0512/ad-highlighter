@@ -165,19 +165,18 @@
 						/*
 						$.ajax({
 							method: "POST",
-						  	url: "some.php",
-						  	data: {
-						  		currentUrl: "currentUrl",
-						  		adUrl: "adUrl",
-						  		adImage: "adImage",
-						  		featureSet: "featureSet"
-						  	}
+						  	url: backendDomain + "/ads/"
+							data: {
+						        'page_url': '',
+						        'ad_url': '',
+						        'user_ip': '',
+						        'feature': '',
+						        'action': ''
+							},
 						})
-						.done(function( msg ) {
-							console.log( "Data Saved: " + msg );
+						.done(function(data) {
 						});
 						*/
-
 					}
 				}
 			});
@@ -289,6 +288,20 @@
 			sum = Math.sqrt(sum);
 			return (sum < scoreThreshold) ? true: false;
 		}
+
+		var getIPObject = $.when(getIP()).then(function(data) {return data;});
+		console.log("getIPObject ", getIPObject);
+		function getIP() {
+			var d = new $.Deferred();
+			return $.ajax({
+				method: "GET",
+			  	url: 'http://freegeoip.net/json'
+			})
+			.done(function(data) {
+			});
+			d.resolve();
+		}
+
 
 	});
 
