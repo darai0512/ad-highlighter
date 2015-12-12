@@ -140,14 +140,17 @@
 				    		var adsLink = document.createElement("a");
 				    		var adsLeft = document.createElement("div");
 				    		var adsRight = document.createElement("div");
+							var adsRemoveBtn = document.createElement("span");
 
-				    		$(adsLeft).addClass("adsLeft");
+							$(adsLeft).addClass("adsLeft");
 				    		$(adsRight).addClass("adsRight");
+				    		$(adsRemoveBtn).addClass("adsRmBtn");
+				    		$(adsRemoveBtn).on("click", removeAd);
 
-				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight);
+				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight).append(adsRemoveBtn);
 				    		$(adsLeft).append(cloneImgAry[key]);
 				    		$(adsRight).text(cloneTextAry[key]);
-				    		$(adsLink).attr({"href": cloneUrlAry, "target": "_blank"});
+				    		$(adsLink).attr({"href": cloneUrlAry[key], "target": "_blank"});
 				    		$(adsLink).append(adsContainer);
 				    		$(hotspot_container).append(adsLink);
 						}
@@ -160,6 +163,12 @@
 				$(hotspot_container).hide();
 			});
 		});
+
+		function removeAd () {
+			event.preventDefault();
+			//Todo remove ad in cloneUrlAry
+			$(this).parent().hide();
+		}
 
 		function getUserScore() {
 		    var d = new $.Deferred();

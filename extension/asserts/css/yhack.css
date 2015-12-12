@@ -36,6 +36,7 @@
 }
 
 .adsContainer {
+	position: relative;
 	display: inline-block;
 	padding: 4px 6px 4px 6px;
 	margin-top: 12px;
@@ -72,4 +73,14 @@
 	font-size: 64px;
 	line-height: 220px;
 	color: #FFFFFF;
+}
+
+.adsRmBtn {
+	position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    right: -12px;
+    top: -12px;
 }
