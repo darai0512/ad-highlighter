@@ -9,7 +9,7 @@ var domainKeywords =
     "celebrity": ["tw.celebrity.yahoo.com"],
     "music": ["yahoo.streetvoice.com"],
     "tech": ["tw.tech.yahoo.com"],
-    "autos": ["tw.autos.yahoo.com", "carview.yahoo.co.jp"],
+    "autos": ["autos.yahoo", "carview.yahoo"],
     "food": ["yahoo.gomaji.com"]
 }
 
@@ -24,16 +24,9 @@ var userDomainRepresent = {
     "food": 0
 }
 
-for(type in domainKeywords) {
-	console.log("type", type);
-	for(keyword in domainKeywords[type]){
-	  console.log("site keywords", domainKeywords[type][keyword]);
-          searchHistoryCounting(type, domainKeywords[type][keyword]);
-	  //$.when(searchHistoryCounting(type, yahooDomain[intl][type]));
-	}
-}
-
-console.log("user history score = ", userDomainRepresent);
+$.when(searchHistoryCounting()).done(function(){
+  console.log("user history score = ", userDomainRepresent);
+});
 
 // send userDomainRepresent to contentscript.js
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -44,15 +37,24 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 
-function searchHistoryCounting(type, domain) {
+function searchHistoryCounting() {
     var d = new $.Deferred();
-	chrome.history.search({text: domain, maxResults: 100}, function(data) {
-	    data.forEach(function(page) {
-	        //console.log(page.url);
-	        userDomainRepresent[type] = userDomainRepresent[type] + 1;
-	    });
-	});
-
+    chrome.history.search({text: '', maxResults: 1000}, function(results) {
+        //console.log(results);
+	for(key in results){
+          //console.log(results[key]);
+          for(type in domainKeywords){
+              //console.log(type);
+            for(keyword in domainKeywords[type]){
+              if(results[key].url.indexOf(domainKeywords[type][keyword]) != -1){
+                  console.log(domainKeywords[type][keyword] + ' in ' + results[key].url);
+	          userDomainRepresent[type] = userDomainRepresent[type] + results[key].visitCount;
+                  //console.log(domainKeywords[type][keyword] + ' add ' + results[key].visitCount);
+              }
+            }
+          }
+        };
+    });
     d.resolve();
     return d;
 }
