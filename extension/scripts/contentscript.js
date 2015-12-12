@@ -162,13 +162,25 @@
 			$("body").click(function(){
 				$(hotspot_container).hide();
 			});
-		});
 
-		function removeAd () {
-			event.preventDefault();
-			//Todo remove ad in cloneUrlAry
-			$(this).parent().hide();
-		}
+			function removeCloneEle(eleIndex) {
+				if (eleIndex != -1) {
+					cloneUrlAry.splice(eleIndex, 1);
+					cloneImgAry.splice(eleIndex, 1);
+					cloneTextAry.splice(eleIndex, 1);
+				}
+			}
+
+			function removeAd () {
+				event.preventDefault();
+				//Todo remove ad in cloneUrlAry
+				var rmLink = $(this).parents("a").attr("href");
+				var indexOfLink = jQuery.inArray(rmLink, cloneUrlAry);
+				removeCloneEle(indexOfLink);
+
+				$(this).parent().hide();
+			}
+		});
 
 		function getUserScore() {
 		    var d = new $.Deferred();
