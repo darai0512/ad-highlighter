@@ -167,11 +167,11 @@
 							method: "POST",
 						  	url: backendDomain + "/ads/"
 							data: {
-						        'page_url': '',
-						        'ad_url': '',
+						        'page_url': pageUrl,
+						        'ad_url': adUrl,
 						        'user_ip': '',
-						        'feature': '',
-						        'action': ''
+						        'feature': userScore,
+						        'action': 'insert'
 							},
 						})
 						.done(function(data) {
@@ -205,7 +205,7 @@
 				    		$(adsRemoveBtn).addClass("adsRmBtn");
 				    		$(adsRemoveBtn).on("click", removeAd);
 
-				    		$(adsContainer).addClass("adsContainer").append(adsLeft).append(adsRight).append(adsRemoveBtn);
+				    		$(adsContainer).addClass("adsContainer").addClass("shakeme").append(adsLeft).append(adsRight).append(adsRemoveBtn);
 				    		$(adsLeft).append(cloneImgAry[key]);
 				    		$(adsRight).text(cloneTextAry[key]);
 				    		$(adsLink).attr({"href": cloneUrlAry[key], "target": "_blank"});
@@ -289,17 +289,19 @@
 			return (sum < scoreThreshold) ? true: false;
 		}
 
-		var getIPObject = $.when(getIP()).then(function(data) {return data;});
-		console.log("getIPObject ", getIPObject);
-		function getIP() {
+		console.log("getUserIP", $.when(getUserIP()).then(function(data){return data;}));
+
+		function getUserIP() {
 			var d = new $.Deferred();
-			return $.ajax({
+			$.ajax({
 				method: "GET",
-			  	url: 'http://freegeoip.net/json'
-			})
-			.done(function(data) {
+			  	url: 'http://freegeoip.net/json',
+			  	success: function(data) {
+					console.log("get ip", data.ip);
+					d.resolve(data);
+				}
 			});
-			d.resolve();
+			return d.promise();
 		}
 
 
