@@ -10,7 +10,10 @@ var domainKeywords =
     "music": ["yahoo.streetvoice.com"],
     "tech": ["tw.tech.yahoo.com"],
     "autos": ["autos.yahoo", "carview.yahoo"],
-    "food": ["yahoo.gomaji.com"]
+    "food": ["yahoo.gomaji.com"],
+    "fashion":[],
+    "travel":[],
+    "game":[]
 }
 
 var userDomainRepresent = {
@@ -21,25 +24,32 @@ var userDomainRepresent = {
     "music": 0,
     "tech": 0,
     "autos": 0,
-    "food": 0
+    "food": 0,
+    "fashion": 0,
+    "travel": 0,
+    "game": 0
 }
 
-$.when(searchHistoryCounting()).done(function(){
-  console.log("user history score = ", userDomainRepresent);
+var history_analysis = new $.Deferred();
+
+$.when(history_analysis).done(function(feature){
+  console.log("user history score = ", JSON.stringify(feature));
+  localStorage.user_feature = JSON.stringify(feature);
 });
 
 // send userDomainRepresent to contentscript.js
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.method == "getStatus")
-      sendResponse({score: userDomainRepresent});
+      sendResponse({score: JSON.parse(localStorage.getItem('testObject'))});
     else
       sendResponse({}); // snub them.
 });
 
+searchHistoryCounting();
 
 function searchHistoryCounting() {
     var d = new $.Deferred();
-    chrome.history.search({text: '', maxResults: 1000}, function(results) {
+    chrome.history.search({text: '', maxResults: 10000}, function(results) {
         //console.log(results);
 	for(key in results){
           //console.log(results[key]);
@@ -54,7 +64,10 @@ function searchHistoryCounting() {
             }
           }
         };
+        d.resolve();
     });
-    d.resolve();
-    return d;
+    $.when(d).done(function(){
+      history_analysis.resolve(userDomainRepresent);
+    });
+    return history_analysis;
 }
