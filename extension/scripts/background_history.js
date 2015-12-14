@@ -5,15 +5,15 @@ var domainKeywords =
 {
     "sports": ["tw.sports.yahoo.com", "sports.yahoo.co.jp"],
     "finance": ["tw.money.yahoo.com", "finance.yahoo.co.jp"],
-    "movies": ["tw.movies.yahoo.com"],
+    "movies": ["tw.movies.yahoo.com", "gyao.yahoo.co.jp", "movies.yahoo.co.jp"],
     "celebrity": ["tw.celebrity.yahoo.com"],
-    "music": ["yahoo.streetvoice.com"],
-    "tech": ["tw.tech.yahoo.com"],
-    "autos": ["autos.yahoo", "carview.yahoo"],
-    "food": ["yahoo.gomaji.com"],
-    "fashion":[],
-    "travel":[],
-    "game":[]
+    "music": ["yahoo.streetvoice.com", "chakumero.yahoo.co.jp"],
+    "tech": ["tw.tech.yahoo.com", "developer.yahoo.co.jp"],
+    "autos": ["autos.yahoo", "carview.yahoo.co.jp"],
+    "food": ["yahoo.gomaji.com", "cookpad.com"],
+    "travel":["travel.yahoo.co.jp"],
+    "shopping":["shopping.yahoo.co.jp","lohaco.jp"],
+    "game":["games.yahoo.co.jp"]
 }
 
 var userDomainRepresent = {
@@ -25,8 +25,8 @@ var userDomainRepresent = {
     "tech": 0,
     "autos": 0,
     "food": 0,
-    "fashion": 0,
     "travel": 0,
+    "shopping":0,
     "game": 0
 }
 
