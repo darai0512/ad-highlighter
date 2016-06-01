@@ -1,8 +1,0 @@
-## Abstract
-
-
-
-## Specification
-
-- one
-- two
