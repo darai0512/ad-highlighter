@@ -1,4 +1,4 @@
-## AD-highlighter - 1st Yahoo Taiwan/Japan Hackday
+## AD-highlighter - 1st　Taiwan/Japan Hackday
 
 #### [Hackpad](https://goo.gl/z9mD15)
 #### [Pick Deck](https://docs.google.com/presentation/d/1xiNzc4lSmBuC3H__JoVP2gr0N84RJZKiiK58D8SRQgk/edit#slide=id.p4)
